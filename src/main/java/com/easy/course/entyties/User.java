@@ -17,14 +17,12 @@ public class User implements Serializable  {
 	private static final long serialVersionUID = 1L;
 
 	/*
-	 * indicador da chave do objeto
+	 * Id = indicador da chave do objeto
+	 * GeneratedValue = para incrementar chave Id
 	 */
 	@Id
-	/*
-	 * para incrementar chave
-	 */
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	private Long id;
 	private String name;
 	private String phone;
 	private String email;
