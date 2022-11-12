@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -31,7 +33,15 @@ public class User implements Serializable  {
 	private String email;
 	private String password;
 	
-	@OneToMany
+	/*
+	 * Jsonignore -> impede looping usuário chama pedido que chama usuário..., ou seja 
+	 * vai mostar o pedido com seu respectivo cliente - lazy loading
+	 * onetomany = associação um para muitos
+	 * o jpa nã carrega os objetos para muitos, ou seja, no cliente não vai mostrar pedidos
+	 * mappedBy = nome do objeto associado
+	 */
+	@JsonIgnore
+	@OneToMany(mappedBy = "client")
 	private List<Order> orders = new ArrayList<>();
 	
 	public User() {	

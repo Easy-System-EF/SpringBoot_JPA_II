@@ -13,6 +13,9 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import com.easy.course.entyties.User;
 import com.easy.course.services.UserService;
 
+/*
+ * caminho do recurso = users
+ */
 @RestController
 @RequestMapping(value = "/users")
 public class UserResource {
