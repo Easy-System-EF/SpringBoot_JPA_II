@@ -8,9 +8,11 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
+import com.easy.course.entyties.Category;
 import com.easy.course.entyties.Order;
 import com.easy.course.entyties.User;
 import com.easy.course.entyties.enuns.OrderStatus;
+import com.easy.course.repositories.CategoryRepository;
 import com.easy.course.repositories.OrderRepository;
 import com.easy.course.repositories.UserRepository;
 
@@ -30,12 +32,21 @@ public class TestConfig implements CommandLineRunner {
 
 	@Autowired
 	private OrderRepository orderRepository;
+	
+	@Autowired
+	private CategoryRepository categoryRepository; 
 /*
  * inclui valor do Id pq não aceitou null 	
  */
 	
 	@Override
 	public void run(String... arqgs) {
+		Category cat1 = new Category(null, "Electronics"); 
+		Category cat2 = new Category(null, "Books"); 
+		Category cat3 = new Category(null, "Computers");
+		
+		categoryRepository.saveAll(Arrays.asList(cat1, cat2, cat3));
+		
 		User u1 = new User(null, "Maria Brown", "988888888", "maria@gmail.com", "123456");
 		User u2 = new User(null, "Alex Green", "977777777", "alex@gmail.com", "123456");
 		
