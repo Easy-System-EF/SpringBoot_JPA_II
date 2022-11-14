@@ -4,12 +4,14 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
-import jakarta.persistence.Transient;
 
 @Entity
 /*
@@ -29,9 +31,13 @@ public class Category implements Serializable {
 	private String name;
 
 	/*
-	 * jpa ignora coleção (sem mapeamento)
-	 */
-	@Transient
+	 *@Transient = jpa ignora coleção (qdo ainda sem mapeamento)
+	 *
+	 *manytomany = agora, mapeamento para associação de produtos
+	 *jsonIgnore = evita looping produto-categira-produto... e alinha categorias na consulta de produtos	 
+	*/
+	@ManyToMany(mappedBy = "categories")
+	@JsonIgnore
 	private Set<Product> products = new HashSet<>();
 	
 	public Category() {

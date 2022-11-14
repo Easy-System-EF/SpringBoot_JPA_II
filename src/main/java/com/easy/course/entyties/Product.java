@@ -8,8 +8,10 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
-import jakarta.persistence.Transient;
 
 @Entity
 @Table(name = "tb_product")
@@ -26,8 +28,19 @@ public class Product implements Serializable {
 
 	/*
 	 * jpa ignora coleção (sem mapeamento)
+	 *
+	 *@Transient
+	 *
+	 * agora de paradigma orientado a objetos para modelo relacional = tabel de associação
+	 * mapeamento para transformar as associações em tabela do modelo relacional
+	 * 
+	 * muitos para muitos
+	 * joinTble = nome da tabela de associações nova 
+	 * joinColumn = chave estrangeira(na tabela nova)
+	 * inverseJoinColumn  = chave etrangeira da coleção associada 
 	 */
-	@Transient
+	@ManyToMany
+	@JoinTable(name = "tb_product_category", joinColumns = @JoinColumn(name = "product_Id"), inverseJoinColumns = @JoinColumn(name = "category_Id"))
 	private Set<Category> categories = new HashSet<>();
 	
 	public Product() {
