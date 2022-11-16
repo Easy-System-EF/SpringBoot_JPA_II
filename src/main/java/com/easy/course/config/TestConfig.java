@@ -10,10 +10,12 @@ import org.springframework.context.annotation.Profile;
 
 import com.easy.course.entyties.Category;
 import com.easy.course.entyties.Order;
+import com.easy.course.entyties.OrderItem;
 import com.easy.course.entyties.Product;
 import com.easy.course.entyties.User;
 import com.easy.course.entyties.enuns.OrderStatus;
 import com.easy.course.repositories.CategoryRepository;
+import com.easy.course.repositories.OrderItemRepository;
 import com.easy.course.repositories.OrderRepository;
 import com.easy.course.repositories.ProductRepository;
 import com.easy.course.repositories.UserRepository;
@@ -40,6 +42,9 @@ public class TestConfig implements CommandLineRunner {
 	
 	@Autowired
 	private ProductRepository productRepository;
+	
+	@Autowired
+	private OrderItemRepository orderItemRepository;
 /*
  * inclui valor do Id pq não aceitou null 	
  */
@@ -78,5 +83,13 @@ public class TestConfig implements CommandLineRunner {
 		
 		userRepository.saveAll(Arrays.asList(u1, u2));
 		orderRepository.saveAll(Arrays.asList(o1, o2, o3));
+		
+		OrderItem oi1 = new OrderItem(o1, p1, 2, p1.getPrice());
+		OrderItem oi2 = new OrderItem(o1, p3, 1, p3.getPrice());
+		OrderItem oi3 = new OrderItem(o2, p3, 2, p3.getPrice());
+		OrderItem oi4 = new OrderItem(o3, p5, 2, p5.getPrice());
+		
+		orderItemRepository.saveAll(Arrays.asList(oi1, oi2, oi3, oi4));
+		
 	}
 }

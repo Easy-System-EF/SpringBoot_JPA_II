@@ -1,6 +1,7 @@
 package com.easy.course.entyties;
 
 import com.easy.course.entyties.pk.OrderItemPK;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
@@ -11,7 +12,10 @@ import jakarta.persistence.Table;
 public class OrderItem {
 
 	@EmbeddedId
-	private OrderItemPK id;
+	/*
+	 * classe auxiliar não pode ser nula, mas pode estar vazia
+	 */
+	private OrderItemPK id = new OrderItemPK();
 	private Integer quantity;
 	private Double price;
 	
@@ -42,6 +46,11 @@ public class OrderItem {
 		this.price = price;
 	}
 
+	/*
+	 * jsonIgnor aq, pq é onde traz os pedidos para alimentar (orderItemPK) o looping do mapeamento lá do pedido(order)
+	 * oneToMany
+	 */
+	@JsonIgnore
 	public void setOrder(Order order) {
 		id.setOrder(order);
 	}
