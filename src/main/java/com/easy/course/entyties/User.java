@@ -36,9 +36,9 @@ public class User implements Serializable  {
 	/*
 	 * Jsonignore -> impede looping usuário chama pedido que chama usuário..., ou seja 
 	 * vai mostar o pedido com seu respectivo cliente - lazy loading
-	 * onetomany = associação um para muitos
+	 * onetomany = associação um (user = client) para muitos (pedidos)
 	 * o jpa nã carrega os objetos para muitos, ou seja, no cliente não vai mostrar pedidos
-	 * mappedBy = nome do objeto associado
+	 * mappedBy = mapeado pelo nome do objeto associado - coleção, com nome do atributo no order
 	 */
 	@JsonIgnore
 	@OneToMany(mappedBy = "client")

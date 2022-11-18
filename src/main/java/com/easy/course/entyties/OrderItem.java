@@ -49,6 +49,7 @@ public class OrderItem {
 	/*
 	 * jsonIgnor aq, pq é onde traz os pedidos para alimentar (orderItemPK) o looping do mapeamento lá do pedido(order)
 	 * oneToMany
+	 * alinhamento dos itens ao pedido
 	 */
 	@JsonIgnore
 	public void setOrder(Order order) {

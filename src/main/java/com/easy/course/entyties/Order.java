@@ -42,8 +42,8 @@ public class Order implements Serializable {
 	private Integer orderStatus;
 
 	/*
-	 * relação muitos para um
-	 * joinColumn = nome da chave estrangeira
+	 * relação muitos (pedidos) para um (user = client)
+	 * joinColumn = nome da chave estrangeira para atributo na referencia (proprietario # referencia)
 	 */
 	@ManyToOne
 	@JoinColumn(name = "client_id")

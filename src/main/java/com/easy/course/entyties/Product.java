@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -11,6 +13,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -31,17 +34,24 @@ public class Product implements Serializable {
 	 *
 	 *@Transient
 	 *
-	 * agora de paradigma orientado a objetos para modelo relacional = tabel de associação
+	 * agora de paradigma orientado a objetos para modelo relacional = tabela de associação
 	 * mapeamento para transformar as associações em tabela do modelo relacional
 	 * 
-	 * muitos para muitos
-	 * joinTble = nome da tabela de associações nova 
-	 * joinColumn = chave estrangeira(na tabela nova)
+	 * muitos para muitos - JoinColumns -> pq produto é o proprietario e mostra key de acesso da referencia
+	 * joinTable = nome da tabela de associações nova 
+	 * joinColumn = chave estrangeira(na tabela nova = referencia)
 	 * inverseJoinColumn  = chave etrangeira da coleção associada 
 	 */
 	@ManyToMany
 	@JoinTable(name = "tb_product_category", joinColumns = @JoinColumn(name = "product_Id"), inverseJoinColumns = @JoinColumn(name = "category_Id"))
 	private Set<Category> categories = new HashSet<>();
+
+	/*
+	 * proprietario acessando a key d referencia
+	 * temos q fazer o get - vida getOrders
+	 */
+	@OneToMany(mappedBy = "id.product")
+	private Set<OrderItem> itens = new HashSet<>();
 	
 	public Product() {
 	}
@@ -97,6 +107,20 @@ public class Product implements Serializable {
 
 	public Set<Category> getCategories() {
 		return categories;
+	}
+	
+	/*
+	 * metodo q varre o pedido(order item) e associa a coleção de pedidos do produto
+	 * 
+	 * o JsonIgnore aq evita o looping e alinha os produtos na requisição dos pedidos
+	 */
+	@JsonIgnore
+	public Set<Order> getOrders() {
+		Set<Order> set = new HashSet<>();
+		for (OrderItem oi : itens) {
+			set.add(oi.getOrder());
+		}			
+		return set;
 	}
 
 	@Override
