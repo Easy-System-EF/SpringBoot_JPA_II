@@ -110,7 +110,9 @@ public class Product implements Serializable {
 	}
 	
 	/*
-	 * metodo q varre o pedido(order item) e associa a coleção de pedidos do produto
+	 * metodo q varre os itens de pedido(associado) e associa pedidos ao produto
+	 * que esta mapeado com a key de produtos para trazer id.Product
+	 * no pedido ja tem a relação com o itens do pedido, com pedido e produto
 	 * 
 	 * o JsonIgnore aq evita o looping e alinha os produtos na requisição dos pedidos
 	 */

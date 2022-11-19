@@ -1,7 +1,3 @@
-/*
- * commit anterior é o: "Product-OrderItem one-to-many association"
- */
-
 package com.easy.course.entyties;
 
 import java.io.Serializable;

@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Profile;
 import com.easy.course.entyties.Category;
 import com.easy.course.entyties.Order;
 import com.easy.course.entyties.OrderItem;
+import com.easy.course.entyties.Payment;
 import com.easy.course.entyties.Product;
 import com.easy.course.entyties.User;
 import com.easy.course.entyties.enuns.OrderStatus;
@@ -90,6 +91,13 @@ public class TestConfig implements CommandLineRunner {
 		OrderItem oi4 = new OrderItem(o3, p5, 2, p5.getPrice());
 		
 		orderItemRepository.saveAll(Arrays.asList(oi1, oi2, oi3, oi4));
+		
+		/*
+		 * um para um - gero o obj dependente e vou setar no obj independente, dps salvo e esta criado o dependente
+		 */
+		Payment pay1 = new Payment(null, Instant.parse("2019-06-20T21:53:07Z"), o1);
+		o1.setPayment(pay1);
+		orderRepository.save(o1);
 		
 	}
 }
