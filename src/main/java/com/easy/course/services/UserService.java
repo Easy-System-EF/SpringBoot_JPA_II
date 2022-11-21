@@ -32,4 +32,8 @@ public class UserService {
 		 * operação get retorna  o objeto optional
 		 */
 	}
+	
+	public User insert(User obj) {
+		return repository.save(obj);
+	}
 }

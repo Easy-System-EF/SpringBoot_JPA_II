@@ -68,6 +68,10 @@ public class OrderItem {
 		return id.getProduct();
 	}
 	
+	public Double getSubTotal() {
+		return quantity * price;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

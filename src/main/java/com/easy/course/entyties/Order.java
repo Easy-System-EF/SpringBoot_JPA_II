@@ -135,6 +135,14 @@ public class Order implements Serializable {
 		this.payment = payment;
 	}
 
+	public Double getTotal() {
+		double sun = 0.00;
+		for (OrderItem oi : itens) {
+			sun += oi.getSubTotal();
+		}
+		return sun;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

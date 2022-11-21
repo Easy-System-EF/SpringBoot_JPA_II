@@ -3,6 +3,8 @@ package com.easy.course.entyties;
 import java.io.Serializable;
 import java.time.Instant;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -30,10 +32,12 @@ public class Payment implements Serializable {
 	private Instant moment;
 
 	/*
-	 * um para um e mapId = transferencia de id do proprietario(order) para referencia(payment)
+	 * um para um e mapId = transferencia de id do independente(order) para dependente(payment)
+	 * JsonIgnore para alinhar o pagamento ao pedido
 	 */
 	@OneToOne
 	@MapsId
+	@JsonIgnore
 	private Order orders;
 	
 	public Payment() {	
