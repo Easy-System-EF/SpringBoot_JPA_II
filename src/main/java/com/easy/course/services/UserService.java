@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.easy.course.entyties.User;
 import com.easy.course.repositories.UserRepository;
+import com.easy.course.services.exception.ResourceNotFoundException;
 
 /*
  * informando que serviço é um registro componente do spring no mecanismo de gestão de dependencia 
@@ -27,9 +28,13 @@ public class UserService {
 	
 	public User findById(Long id) {
 		Optional<User> obj = repository.findById(id);
-		return obj.get();
 		/*
-		 * operação get retorna  o objeto optional
+		 * se o obj não existir, retrna a exceção tratada
+		 */
+		return obj.orElseThrow(() -> new ResourceNotFoundException(id));
+//		return obj.get();
+		/*
+		 * operação get retorna  o objeto optional, se não existir erro 500
 		 */
 	}
 	
@@ -42,7 +47,7 @@ public class UserService {
 	}
 	
 	/*
-	 * referenceById -> traz o obj temporariamente para atualizações e dps salva
+	 * referenceById -> traz o obj monitorado sem trazer para atualizações e dps salva
 	 */
 	public User update(Long id, User obj) {
 		User entity = repository.getReferenceById(id);
