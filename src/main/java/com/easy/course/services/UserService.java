@@ -13,6 +13,8 @@ import com.easy.course.repositories.UserRepository;
 import com.easy.course.services.exception.DataBaseException;
 import com.easy.course.services.exception.ResourceNotFoundException;
 
+import jakarta.persistence.EntityNotFoundException;
+
 /*
  * informando que serviço é um registro componente do spring no mecanismo de gestão de dependencia 
  */
@@ -62,9 +64,13 @@ public class UserService {
 	 * referenceById -> traz o obj monitorado sem trazer para atualizações e dps salva
 	 */
 	public User update(Long id, User obj) {
-		User entity = repository.getReferenceById(id);
-		updateData(entity, obj);
-		return repository.save(entity);
+		try {
+			User entity = repository.getReferenceById(id);
+			updateData(entity, obj);
+			return repository.save(entity);
+		} catch(EntityNotFoundException e) {
+			throw new ResourceNotFoundException(id);
+		}
 	}
 	
 	private void updateData(User entity, User obj) {
